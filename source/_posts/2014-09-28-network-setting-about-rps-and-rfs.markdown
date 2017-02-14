@@ -13,7 +13,7 @@ categories: tcp
 <!--more-->
 对于outbound，发送数据包，因为是应用程序跑在多个核上，分别调用系统write写数据到NIC，可以很好的利用多核。
 
-![outbound 多核使用](https://raw.githubusercontent.com/xinheli/xinheli.github.com/master/images/RPS_RFS_1.png)
+![outbound 多核使用]({{ root_url }} /images/RPS_RFS_1.png)
 
 对于inbound，系统默认是使用CPU0来接受数据，处理各种软弱中断，将处理的结果在发送给用户态使用。如果是多条接收队列和多重中断线路的NIC可以帮助数据包并行分发。这就需要RPS和RFS来帮忙了。
 
@@ -22,7 +22,7 @@ RPS全称是Receive Packet Steering, 这是Google工程师Tom Herbert提交的�
 
 RPS实现了数据流的hash归类，它通过数据包相关的信息（比如IP地址和端口号）来创建CPU核分配的hash表项，当一个数据包从NIC转到内核网络子系统时就从该hash表内获取其对应分配的CPU核（首次会创建表项）。并把软中断的负载均衡分到各个cpu，实现了类似多队列网卡的功能。
 
-![inbound 多核使用](https://raw.githubusercontent.com/xinheli/xinheli.github.com/master/images/RPS_RFS_2.png)
+![inbound 多核使用]({{ root_url }} /images/RPS_RFS_2.png)
 
 ###RFS
 RFS 全称是 Receive Flow Steering, 这也是Tom提交的内核补丁，它是用来配合RPS补丁使用的，是RPS补丁的扩展补丁，它把接收的数据包送达应用所在的CPU上，提高cache的命中率。
@@ -43,9 +43,9 @@ RFS 全称是 Receive Flow Steering, 这也是Tom提交的内核补丁，它是�
 ###实现效果
 具体效果如下，更多在[这里](http://wenku.baidu.com/view/315d2c8571fe910ef12df838.html).
 
-![TCP测试](https://raw.githubusercontent.com/xinheli/xinheli.github.com/master/images/RPS_RFS_3.png)
+![TCP测试]({{ root_url }} /images/RPS_RFS_3.png)
 
-![UDP测试](https://raw.githubusercontent.com/xinheli/xinheli.github.com/master/images/RPS_RFS_4.png)
+![UDP测试]({{ root_url }} /images/RPS_RFS_4.png)
 
 特别说明，在UDP使用环境下，不要关联到单独CPU上，具体原因比较复杂，参考[这里](http://wenku.baidu.com/view/315d2c8571fe910ef12df838.html) 
 

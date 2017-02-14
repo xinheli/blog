@@ -10,4 +10,4 @@ categories: misc
 >I wish I could keep writing.
 
 Sights of Singapore
-![Sights of Singapore](https://raw.githubusercontent.com/xinheli/xinheli.github.com/master/images/1.JPG)
+![Sights of Singapore]({{ root_url }} /images/1.JPG")
